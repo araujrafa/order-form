@@ -1,6 +1,11 @@
 import get from '../utils/request/get';
+import Validate from '../validate';
 
 export default class RenderForm {
+  constructor() {
+    this.validate = new Validate();
+  }
+
   createElement(elem) {
     const labelElement = `<label>${elem.label || ''}</label>`;
     switch (elem.type) {
@@ -10,10 +15,11 @@ export default class RenderForm {
         <select required=${elem.required} name=${elem.name}>
           ${Object.values(elem.values)
             .map(val => {
-              return `<option>${val}</option>`;
+              return `<option value="${val}">${val}</option>`;
             })
             .join('')}
         </select>
+        <span></span>
       `;
       }
       case 'big_text': {
@@ -24,7 +30,7 @@ export default class RenderForm {
       }
       case 'button': {
         return `
-          <button ${elem.dataset}>${elem.name}</button>
+          <button ${elem.dataset.map(el => el).join(' ')}>${elem.name}</button>
         `
       }
       default: {
@@ -45,13 +51,13 @@ export default class RenderForm {
       .map((prop, i) => {
         const first = (i === 0);
         return `
-          <fieldset class='${!first ? 'is-hidden' : ''}'>
+          <fieldset data-validate-container class='${!first ? 'is-hidden' : ''}'>
             ${this.data._embedded[prop]
               .map(data => `<div>${this.createElement({ ...data })}</div>`).join('')
             }
             ${first
-              ? this.createElement({ type: 'button', dataset: 'data-next', name: 'Proximo' })
-              : this.createElement({ type: 'button', dataset: 'data-submit', name: 'Enviar' })}
+              ? this.createElement({ type: 'button', dataset: ['data-next', 'data-submit'], name: 'Proximo' })
+              : this.createElement({ type: 'button', dataset: ['data-submit'], name: 'Enviar' })}
           </fieldset>`;
       })
       .join('');
@@ -61,6 +67,7 @@ export default class RenderForm {
 
   tabs(elem) {
     const next = elem.querySelector('[data-next]');
+
     next.addEventListener('click', (e) => {
       e.preventDefault();
       elem.querySelectorAll('fieldset')
@@ -78,6 +85,7 @@ export default class RenderForm {
         this.data = JSON.parse(data);
         this.fillContent(elem);
         this.tabs(elem);
+        this.validate.init(elem);
       });
   }
 
