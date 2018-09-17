@@ -25,7 +25,7 @@ export default class RenderForm {
       case 'big_text': {
         return `
         ${labelElement}
-        <textarea placeholder="${elem.placeholder}" name="${elem.name}"></textarea>
+        <textarea placeholder="${elem.placeholder}" name="${elem.name}" required="${elem.required}"></textarea>
         <span data-warning-message></span>
       `;
       }
@@ -67,26 +67,11 @@ export default class RenderForm {
     elem.innerHTML = content;
   }
 
-  tabs(elem) {
-    const next = elem.querySelector('[data-next]');
-
-    next.addEventListener('click', (e) => {
-      e.preventDefault();
-      elem.querySelectorAll('fieldset')
-        .forEach(el => {
-          el.classList.contains('is-hidden')
-            ? el.classList.remove('is-hidden')
-            : el.classList.add('is-hidden');
-        });
-    });
-  }
-
   init(elem) {
     get('/api/fields.json')
       .then(data => {
         this.data = JSON.parse(data);
         this.fillContent(elem);
-        this.tabs(elem);
         this.validate.init(elem);
       });
   }
