@@ -12,20 +12,21 @@ export default class RenderForm {
       case 'enumerable': {
         return `
         ${labelElement}
-        <select required=${elem.required} name=${elem.name}>
+        <select required="${elem.required}" name="${elem.name}">
           ${Object.values(elem.values)
             .map(val => {
               return `<option value="${val}">${val}</option>`;
             })
             .join('')}
         </select>
-        <span></span>
+        <span data-warning-message></span>
       `;
       }
       case 'big_text': {
         return `
         ${labelElement}
-        <textarea placeholder=${elem.placeholder} name=${elem.name}></textarea>
+        <textarea placeholder="${elem.placeholder}" name="${elem.name}"></textarea>
+        <span data-warning-message></span>
       `;
       }
       case 'button': {
@@ -41,6 +42,7 @@ export default class RenderForm {
             required='${elem.required}'
             placeholder='${elem.placeholder}'
           />
+          <span data-warning-message></span>
         `;
       }
     }
