@@ -19,11 +19,17 @@ describe('Render Form', () => {
     renderForm.register('[data-order-form]');
   });
 
-  test('Should call the init', () => {
+  afterAll(() => {
+    jest.restoreAllMocks();
+    jest.clearMocks();
+    document.body.innerHTML = '';
+  });
+
+  it('Should call the init', () => {
     expect(renderForm.init).toHaveBeenCalled();
   });
 
-  test('Should create element select', () => {
+  it('Should create element select', () => {
     const container = document.createElement('div');
     const enumerable = {
       type: 'enumerable',
@@ -43,7 +49,7 @@ describe('Render Form', () => {
     expect(container.querySelector('label').innerHTML).toBe(enumerable.label);
   });
 
-  test('Should create element big_text', () => {
+  it('Should create element big_text', () => {
     const container = document.createElement('div');
     const enumerable = {
       type: 'big_text',
@@ -61,7 +67,7 @@ describe('Render Form', () => {
     expect(container.querySelector('label').innerHTML).toBe(enumerable.label);
   });
 
-  test('Should create element button', () => {
+  it('Should create element button', () => {
     const container = document.createElement('div');
     const enumerable = {
       name: 'test',
@@ -75,7 +81,7 @@ describe('Render Form', () => {
     expect(container.querySelector('button').dataset).toBeTruthy();
   });
 
-  test('Should create element input', () => {
+  it('Should create element input', () => {
     const container = document.createElement('div');
     const enumerable = {
       name: 'input',
@@ -93,5 +99,12 @@ describe('Render Form', () => {
     expect(container.querySelector('input').placeholder).toBe(enumerable.placeholder);
     expect(container.querySelector('input').required).toBe(enumerable.required);
     expect(container.querySelector('label').innerHTML).toBe(enumerable.label);
+  });
+
+  it('Should add content in the container', () => {
+    const div = document.createElement('div');
+    renderForm.fillContent(div);
+    
+    expect(div.innerHTML).toBeTruthy();
   });
 });

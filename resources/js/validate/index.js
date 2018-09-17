@@ -39,6 +39,7 @@ export default class Validate {
   }
 
   init(elem) {
+    console.log(elem);
     this.containers = elem.querySelectorAll('[data-validate-container]');
     this.containers.forEach(container => {
       this.handleButton(container);
