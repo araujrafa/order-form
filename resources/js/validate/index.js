@@ -29,17 +29,16 @@ export default class Validate {
   handleButton(container) {
     const button = container.querySelector('[data-submit]');
     const fields = container.querySelectorAll('[required="true"]');
-
     button.onclick = (e) => {
       e.preventDefault();
-      if (button.dataset.next !== undefined && !this.isWhitesFields(fields)) {
+      const whiteFields = this.isWhitesFields(fields);
+      if (button.dataset.next !== undefined && !whiteFields) {
         this.nextStep();
       }
     }
   }
 
   init(elem) {
-    console.log(elem);
     this.containers = elem.querySelectorAll('[data-validate-container]');
     this.containers.forEach(container => {
       this.handleButton(container);

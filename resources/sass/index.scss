@@ -1,11 +1,3 @@
-body {
-  background: black;
-}
-
-h1 {
-  color: blue($color: #000000)
-}
-
-p {
-  scale: 1
-}
+@import "utils";
+@import "form";
+@import "title";

@@ -1,0 +1,73 @@
+.c-form {
+  font-size: 16px;
+  font-style: normal;
+  font-family: 'Noto Sans';
+  margin: 0 auto;
+  width: 100%;
+
+  @media screen and (min-width: 1020px) {
+    width: 50%;
+  }
+
+  &__control {
+    border: 0;
+    padding: 0 10%;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    min-height: 90px;
+  }
+
+  &__text {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  &__select {
+    height: 40px;
+  }
+
+  &__area {
+    padding: 13px 11px;
+  }
+
+  &__input {
+    border: 1px solid rgb(169, 169, 169);
+    height: 40px;
+  }
+
+  &__select,
+  &__area,
+  &__input {
+    background-color: #eff4fa;
+    border-radius: 6px;
+    line-height: inherit;
+    margin-bottom: 6px;
+  }
+
+  &__button {
+    background-color: #1393f6;
+    border-radius: 2px;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
+    height: 40px;
+    margin: 20px 0 36px;
+    width: 100%;
+
+    &:hover {
+      opacity: 0.9
+    }
+  }
+
+  &__error {
+    color: #b24141;
+    font-size: 12px;
+  }
+}
